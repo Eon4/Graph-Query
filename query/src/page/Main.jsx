@@ -1,40 +1,43 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPersons } from '../queries/getPersons';
+import { getPerson } from '../queries/getPerson';
 import { request } from "graphql-request";
 import PuffLoader from "react-spinners/PuffLoader";
+import { Link } from "react-router-dom";
+
 
 export const Main = () => {
-    const { data, isLoading, error } = useQuery({
-      queryKey: ["getStarwarsPerson"],
-      queryFn: async () => request(
-        `https://swapi-graphql.netlify.app/.netlify/functions/index`, 
-        getPersons
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["getStarwarsPerson"],
+    queryFn: async () =>
+      request(
+        "https://swapi-graphql.netlify.app/.netlify/functions/index",
+        getPerson
       ),
-    });
+  });
 
-  console.log("Data", data);
-
-  if (isLoading) return <PuffLoader size= {30} color = "white"/>;
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <span>Error: {error.message}</span>;
   }
-  
-  
+
+  console.log("Data", data);
   return (
-    <section>
-      <h1>Hello Mainpage</h1>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
-          textAlign: "left",
-        }}
-      >
-        {data.allPeople.people.map((item, i) => {
-          return <p key={i}>{item.name}</p>;
-        })}
-      </div>
-    </section>
+    <>
+      <section>
+        <ul>
+          {data.allPeople.people.map((item, index) => (
+            <Link to={`/character/${item.id}`} key={index}>
+              {item.name}
+            </Link>
+          //    <Link to={`/person/${item.id}`} key={index}>
+          //    {item.name}
+          //  </Link>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 };
