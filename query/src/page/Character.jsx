@@ -31,11 +31,14 @@ export const CharacterDetails = () => {
 
   return (
     <div>
-      <h4>Character details</h4>
-      <p>{data.person.name}</p>
-      <p>{data.person.gender}</p>
-      <p>{data.person.height} cm</p>
-      {/* <p>{data.person.species}</p> */}
+      <h2>Character details</h2>
+      <h3>Name: {data.person.name}</h3>
+      <p>Gender: {data.person.gender}</p>
+      <p>Height: {data.person.height} cm</p>
+      <p>Species: {data.person.species ? data.person.species.name : "Unknown" } </p>
+      {/* <p>Species classification: {data.person.species.classification}</p> */}
+      {/* <p>Homeworld: {data.person.species.homeworld.name}</p> */}
+      {/* <p>Homeworld language: {data.person.species.language}</p> */}
       <button> <Link to="/">BACK</Link> </button>
     </div>
     
