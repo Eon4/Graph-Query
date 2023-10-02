@@ -3,8 +3,6 @@ import { getPersons } from '../queries/getPersons';
 import { request } from "graphql-request";
 import PuffLoader from "react-spinners/PuffLoader";
 
-
-
 export const Main = () => {
     const { data, isLoading, error } = useQuery({
       queryKey: ["getStarwarsPerson"],
